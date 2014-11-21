@@ -1,0 +1,46 @@
+language: android
+# jdk:
+#   - oraclejdk8
+#   - oraclejdk7
+env:
+  global:
+    - TERM=dumb
+    - ANDROID_ABI=armeabi-v7a
+    - BUILD_TOOLS=build-tools-21.1.1
+  matrix:
+    #- ANDROID_TARGET=android-21  ANDROID_SDKS=$BUILD_TOOLS,sys-img-armeabi-v7a-android-tv-21  ANDROID_ABI=android-tv/armeabi-v7a
+    - ANDROID_TARGET=android-21  ANDROID_SDKS=$BUILD_TOOLS,sys-img-armeabi-v7a-${ANDROID_TARGET}
+    #- ANDROID_TARGET=android-20  ANDROID_SDKS=$BUILD_TOOLS,sys-img-armeabi-v7a-android-wear-20  ANDROID_ABI=android-wear/armeabi-v7a
+    - ANDROID_TARGET=android-19  ANDROID_SDKS=$BUILD_TOOLS
+    - ANDROID_TARGET=android-18  ANDROID_SDKS=$BUILD_TOOLS
+    - ANDROID_TARGET=android-17  ANDROID_SDKS=$BUILD_TOOLS
+    - ANDROID_TARGET=android-16  ANDROID_SDKS=$BUILD_TOOLS
+    - ANDROID_TARGET=android-14  ANDROID_SDKS=$BUILD_TOOLS,${ANDROID_TARGET},sys-img-armeabi-v7a-${ANDROID_TARGET}
+    - ANDROID_TARGET=android-10  ANDROID_SDKS=$BUILD_TOOLS,sys-img-x86-${ANDROID_TARGET}  ANDROID_ABI=armeabi
+    #- ANDROID_TARGET=android-8   ANDROID_SDKS=$BUILD_TOOLS,${ANDROID_TARGET}  ANDROID_ABI=armeabi
+
+android:
+  components:
+    - $ANDROID_SDKS
+
+before_install:
+  - ./gradlew -v
+  - uname -a
+  - env | col | sort
+  - android list targets | grep "id:"
+  - android list sdk --no-ui --extended | grep "id:"
+  - android list sdk --no-ui --extended --all | grep "id:"
+  # Create and start emulator
+  - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
+  - emulator -avd test -no-skin -no-audio -no-window &
+
+before_script:
+  - adb wait-for-device
+  - adb shell input keyevent 82 &
+
+script:
+  #- ./gradlew assemble             # [assembleDebug, assembleRelease]
+  - ./gradlew assembleRelease
+  - ./gradlew connectedAndroidTest  # [assembleDebug, assembleDebugTest]
+  #- ./gradlew check                # [lint]
+  #- ./gradlew build                # [assemble, check]
