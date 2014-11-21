@@ -6,7 +6,7 @@ env:
   global:
     - TERM=dumb
     - ANDROID_ABI=armeabi-v7a
-    - BUILD_TOOLS=tools,platform-tools,build-tools-21.1.1,android-21
+    - BUILD_TOOLS=tools,platform-tools,build-tools-21.1.1,android-21,extra-android-m2repository,extra-android-support,extra-google-m2repository
   matrix:
     #- ANDROID_TARGET=android-21  ANDROID_SDKS=$BUILD_TOOLS,sys-img-armeabi-v7a-android-tv-21  ANDROID_ABI=android-tv/armeabi-v7a
     - ANDROID_TARGET=android-21  ANDROID_SDKS=$BUILD_TOOLS,sys-img-armeabi-v7a-${ANDROID_TARGET}
