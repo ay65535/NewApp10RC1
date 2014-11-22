@@ -44,6 +44,6 @@ before_script:
 script:
   #- ./gradlew assemble             # [assembleDebug, assembleRelease]
   #- ./gradlew assembleRelease
-  - ./gradlew connectedAndroidTest --stacktrace  # [assembleDebug, assembleDebugTest]
+  - ./gradlew connectedAndroidTest --full-stacktrace  # [assembleDebug, assembleDebugTest]
   #- ./gradlew check                # [lint]
   #- ./gradlew build                # [assemble, check]
