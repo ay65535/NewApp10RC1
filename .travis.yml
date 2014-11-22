@@ -3,16 +3,14 @@ jdk:
   - oraclejdk8
   - oraclejdk7
   - openjdk7
-  - openjdk6
 env:
   global:
-    - TERM=dumb
+    #- TERM=dumb
     - ANDROID_ABI=armeabi-v7a
-    #- BUILD_TOOLS=tools,platform-tools,build-tools-21.1.1,android-21,extra-android-m2repository,extra-android-support,extra-google-m2repository
-    - BUILD_TOOLS=tools,platform-tools,build-tools-21.1.1,android-21,extra-android-m2repository,extra-android-support
+    - BUILD_TOOLS=tools,platform-tools,build-tools-21.1.1,android-21,extra-android-m2repository,extra-android-support,extra-google-m2repository
   matrix:
-    - ANDROID_TARGET=android-21  ANDROID_SDKS=$BUILD_TOOLS,${ANDROID_TARGET},sys-img-armeabi-v7a-android-tv-21  ANDROID_ABI=android-tv/armeabi-v7a
-    #- ANDROID_TARGET=android-21  ANDROID_SDKS=$BUILD_TOOLS,${ANDROID_TARGET},sys-img-armeabi-v7a-${ANDROID_TARGET}
+    #- ANDROID_TARGET=android-21  ANDROID_SDKS=$BUILD_TOOLS,${ANDROID_TARGET},sys-img-armeabi-v7a-android-tv-21  ANDROID_ABI=android-tv/armeabi-v7a
+    - ANDROID_TARGET=android-21  ANDROID_SDKS=$BUILD_TOOLS,sys-img-armeabi-v7a-${ANDROID_TARGET}
     #- ANDROID_TARGET=android-20  ANDROID_SDKS=$BUILD_TOOLS,${ANDROID_TARGET},sys-img-armeabi-v7a-android-wear-20  ANDROID_ABI=android-wear/armeabi-v7a
     - ANDROID_TARGET=android-19  ANDROID_SDKS=$BUILD_TOOLS,${ANDROID_TARGET},sys-img-armeabi-v7a-${ANDROID_TARGET}
     - ANDROID_TARGET=android-18  ANDROID_SDKS=$BUILD_TOOLS,${ANDROID_TARGET},sys-img-armeabi-v7a-${ANDROID_TARGET}
@@ -27,13 +25,13 @@ android:
     - $ANDROID_SDKS
 
 before_install:
-  - ./gradlew -v
-  - uname -a
-  - env | col | sort
-  - android list targets | grep "id:"
-  - android list sdk --no-ui --extended | grep "id:"
-  - android list sdk --no-ui --extended --all | grep "id:"
-  - cat /home/travis/build.sh
+  #- ./gradlew -v
+  #- uname -a
+  #- env | col | sort
+  #- android list targets | grep "id:"
+  #- android list sdk --no-ui --extended | grep "id:"
+  #- android list sdk --no-ui --extended --all | grep "id:"
+  #- cat /home/travis/build.sh
   # Create and start emulator
   - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
   - emulator -avd test -no-skin -no-audio -no-window &
