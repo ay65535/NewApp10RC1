@@ -9,7 +9,7 @@ android {
         targetSdkVersion 21
         versionCode 1
         versionName "1.0"
-        testApplicationId 'com.github.ay65535.newapp10rc1.test'
+        testApplicationId 'com.github.ay65535.newapp10rc1'
         testInstrumentationRunner 'android.test.InstrumentationTestRunner'
     }
     compileOptions {
