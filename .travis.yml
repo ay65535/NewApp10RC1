@@ -30,6 +30,7 @@ before_install:
   - android list targets | grep "id:"
   - android list sdk --no-ui --extended | grep "id:"
   - android list sdk --no-ui --extended --all | grep "id:"
+  - cat /home/travis/build.sh
   # Create and start emulator
   - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
   - emulator -avd test -no-skin -no-audio -no-window &
@@ -40,7 +41,7 @@ before_script:
 
 script:
   #- ./gradlew assemble             # [assembleDebug, assembleRelease]
-  - ./gradlew assembleRelease
+  #- ./gradlew assembleRelease
   - ./gradlew connectedAndroidTest  # [assembleDebug, assembleDebugTest]
   #- ./gradlew check                # [lint]
   #- ./gradlew build                # [assemble, check]
