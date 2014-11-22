@@ -20,17 +20,17 @@ env:
     #- ANDROID_TARGET=android-10  ANDROID_SDKS=$BUILD_TOOLS,sys-img-x86-${ANDROID_TARGET}  ANDROID_ABI=armeabi
     #- ANDROID_TARGET=android-8   ANDROID_SDKS=$BUILD_TOOLS,${ANDROID_TARGET}  ANDROID_ABI=armeabi
 
-android:
-  components:
-    - $ANDROID_SDKS
+# android:
+#   components:
+#     - $ANDROID_SDKS
 
 before_install:
   - ./gradlew -v
   #- uname -a
   #- env | col | sort
-  #- android list targets | grep "id:"
-  #- android list sdk --no-ui --extended | grep "id:"
-  #- android list sdk --no-ui --extended --all | grep "id:"
+  - android list targets | grep "id:"
+  - android list sdk --no-ui --extended | grep "id:"
+  - android list sdk --no-ui --extended --all | grep "id:"
   #- cat /home/travis/build.sh
 
 before_script:
